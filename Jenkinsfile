@@ -2,6 +2,13 @@ pipeline {
     agent {
         label 'agent1'
     }
+    stages {
+        stage('create backup') {
+            steps {
+                sh 'mysqldump -u root -proot testdb > mbTechdb-dump.sql'
+            }
+        }
+    }
 
     stages {
         stage('checkout') {
@@ -13,12 +20,17 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mysql -u root -proot -e "create database testdb"'
+                        sh 'mysql -u root -proot -e "create database testdb IF NOT EXIST mbTechdb"'
                     } catch (err) {
                         echo err.getMessage()
                     }
                     sh 'mysql -u root -proot testdb < mbTechdb-dump.sql'
                 }
+            }
+        }
+        post ('Clean Environment') {
+            always {
+                 cleanWs()
             }
         }
     }
