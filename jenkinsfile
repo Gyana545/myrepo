@@ -4,7 +4,7 @@ pipeline {
     }
 
     stages {
-        stage('git') {
+        stage('checkout') {
             steps {
                 git 'https://github.com/Gyana545/myrepo.git'
             }
@@ -13,11 +13,11 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mysql -u root -e "create database testdb"'
+                        sh 'mysql -u root -proot -e "create database testdb"'
                     } catch (err) {
                         echo err.getMessage()
                     }
-                    sh 'mysql -u root testdb < mbTechdb-dump.sql'
+                    sh 'mysql -u root -proot -e "testdb < mbTechdb-dump.sql"'
                 }
             }
         }
