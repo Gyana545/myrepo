@@ -28,9 +28,9 @@ pipeline {
                 }
             }
         }
-        post ('Clean Environment') {
-            always {
-                 cleanWs()
+        stage('clean environment') {
+            steps {
+                cleanWs()
             }
         }
     }
