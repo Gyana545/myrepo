@@ -1,4 +1,8 @@
 USE `EXP1`;
-ALTER TABLE employee DROP COLOUM IF EXIST salary;
-ALTER TABLE employee ADD salary int age int;
-UPDATE employee SET salary = "1000" WHERE id = 1 age = 25 WHERE id = 1;
+
+ALTER TABLE employee DROP COLUMN IF EXISTS salary;
+ALTER TABLE employee DROP COLUMN IF EXISTS age;
+
+ALTER TABLE employee ADD COLUMN salary INT, ADD COLUMN age INT;
+
+UPDATE employee SET salary = 1000, age = 25 WHERE id = 1;
