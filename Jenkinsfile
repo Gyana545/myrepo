@@ -25,6 +25,11 @@ pipeline {
                 }
             }
         }
+        stage('alter database') {
+            steps {
+                sh 'mysql -u root -proot testdb < mbTechdb-alter.sql'
+            }
+        }
         stage('clean environment') {
             steps {
                 cleanWs()
