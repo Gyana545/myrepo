@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('checkout') {
+        stage('test') {
             steps {
                 git 'https://github.com/Gyana545/myrepo.git'
             }
