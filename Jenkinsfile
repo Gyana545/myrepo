@@ -6,6 +6,7 @@ pipeline {
         stage('create backup') {
             steps {
                 sh 'mysqldump -u root -proot testdb > mbTechdb-dump1.sql'
+                sh 'aws s3 cp mbTechdb-dump1.sql s3://mbtechbucket/techdb/'
             }
         }
         
@@ -16,7 +17,7 @@ pipeline {
         }
         stage('clean environment') {
             steps {
-                echo "gyana"
+                cleanWs()
             }
         }
     }
