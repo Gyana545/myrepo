@@ -17,7 +17,7 @@ pipeline {
                     } catch (err) {
                         echo err.getMessage()
                     }
-                    sh 'mysql -u root -proot -e "testdb < mbTechdb-dump.sql"'
+                    sh 'mysql -u root -proot -e testdb < mbTechdb-dump.sql'
                 }
             }
         }
