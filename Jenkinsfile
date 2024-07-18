@@ -8,10 +8,7 @@ pipeline {
                 sh 'mysqldump -u root -proot testdb > mbTechdb-dump.sql'
             }
         }
-    }
-
-    stages {
-        stage('test') {
+        stage('checkout') {
             steps {
                 git 'https://github.com/Gyana545/myrepo.git'
             }
