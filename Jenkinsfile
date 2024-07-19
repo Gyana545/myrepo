@@ -12,7 +12,7 @@ pipeline {
         stage('create backup') {
             steps {
                 sh "mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > mbTechdb-dump.sql"
-                sh "aws s3 cp mbTechdb-dump1.sql s3://mbtechbucket/techdb/"
+                sh "aws s3 cp mbTechdb-dump.sql s3://mbtechbucket/techdb/"
             }
         }
         stage('checkout') {
