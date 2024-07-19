@@ -32,11 +32,6 @@ pipeline {
                 }
             }
         }
-        stage('alter database') {
-            steps {
-                sh "mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < mbTechdb-alter.sql"
-            }
-        }
         stage('clean environment') {
             steps {
                 cleanWs()
