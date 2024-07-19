@@ -11,30 +11,30 @@ pipeline {
     stages {
         stage('create backup') {
             steps {
-                sh 'mysqldump -u $(DB_USER)  -p $(DB_PASSWORD) $(DB_NAME) > mbTechdb-dump.sql'
-                sh 'aws s3 cp mbTechdb-dump1.sql s3://mbtechbucket/techdb/'
+                sh "mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > mbTechdb-dump.sql"
+                sh "aws s3 cp mbTechdb-dump3.sql s3://mbtechbucket/techdb/"
             }
         }
         stage('checkout') {
             steps {
-                git env.REPO_URL
+                git url: "$REPO_URL"
             }
         }
         stage('create database') {
             steps {
                 script {
                     try {
-                        sh 'mysql -u $(DB_USER) -p $(DB_PASSWORD) -e "create database $(DB_NAME) IF NOT EXIST $DB_NAME"'
+                        sh "mysql -u $DB_USER -p$DB_PASSWORD -e \"create database if not exists $DB_NAME\""
                     } catch (err) {
                         echo err.getMessage()
                     }
-                    sh 'mysql -u $(DB_USER) -p $(DB_PASSWORD) $(DB_NAME) < mbTechdb-dump.sql'
+                    sh "mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < mbTechdb-dump.sql"
                 }
             }
         }
         stage('alter database') {
             steps {
-                sh 'mysql -u $(DB_USER) -p $(DB_PASSWORD) $(DB_NAME) < mbTechdb-alter.sql'
+                sh "mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < mbTechdb-alter.sql"
             }
         }
         stage('clean environment') {
