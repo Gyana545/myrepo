@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mysql -u $(DB_USER) -p $(DB_PASSWORD) -e "create database IF NOT EXIST $DB_NAME"'
+                        sh 'mysql -u $(DB_USER) -p $(DB_PASSWORD) -e "create database $(DB_NAME) IF NOT EXIST $DB_NAME"'
                     } catch (err) {
                         echo err.getMessage()
                     }
